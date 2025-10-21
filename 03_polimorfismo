@@ -1,0 +1,37 @@
+class ExportadorDeDados:
+    def __init__(self, caminho_arquivo):
+        self.caminho_arquivo = caminho_arquivo
+
+    def exportar(self, dados):
+        raise NotImplementedError("Subclasse deve implementar este método.")
+
+class ExportadorParaCSV(ExportadorDeDados):
+    def exportar(self, dados):
+        with open(self.caminho_arquivo, "w") as arquivo:
+            for item in dados:
+                linha = ",".join(map(str, item)) + "\n"
+                arquivo.write(linha)
+        print(f"Dados exportados para CSV em {self.caminho_arquivo}")
+
+class ExportadorParaTXT(ExportadorDeDados):
+    def exportar(self, dados):
+        with open(self.caminho_arquivo, "w") as arquivo:
+            for item in dados:
+                arquivo.write(" | ".join(map(str, item)) + "\n")
+        print(f"Dados exportados para TXT em {self.caminho_arquivo}")
+
+def gerar_relatorios(exportadores, dados):
+    for exportador in exportadores:
+        exportador.exportar(dados)
+
+# Exemplo de uso
+dados = [
+    ["Nome", "Idade"],
+    ["Ana", 25],
+    ["Carlos", 30]
+]
+
+csv = ExportadorParaCSV("usuarios.csv")
+txt = ExportadorParaTXT("usuarios.txt")
+
+gerar_relatorios([csv, txt], dados)

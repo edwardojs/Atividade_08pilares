@@ -1,0 +1,30 @@
+class Carro:
+    def __init__(self, marca, modelo, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.ligado = False
+        self.velocidade = 0
+
+    def ligar(self):
+        self.ligado = True
+        print("O carro está ligado.")
+
+    def desligar(self):
+        self.ligado = False
+        self.velocidade = 0
+        print("O carro está desligado.")
+
+    def acelerar(self, valor):
+        if self.ligado:
+            self.velocidade += valor
+            print(f"Velocidade atual: {self.velocidade} km/h")
+        else:
+            print("O carro precisa estar ligado para acelerar.")
+
+    def frear(self, valor):
+        self.velocidade = max(0, self.velocidade - valor)
+        print(f"Velocidade atual: {self.velocidade} km/h")
+
+    def exibir_informacoes(self):
+        print(f"Marca: {self.marca}, Modelo: {self.modelo}, Ano: {self.ano}")
